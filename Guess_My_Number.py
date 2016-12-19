@@ -2,6 +2,10 @@
 # By- Brad Raynaud
 import random
 
+def end():
+    exit()
+
+
 correct = ""
 print("Please think of a number from 1-5, enter 1 when you are ready to proceed")
 ready = input()

@@ -1,5 +1,8 @@
 # Improved Cat List
 
+def end():
+    exit()
+
 catnames = []
 while True:
     print("enter the name of cat {} (Or Enter nothing to stop.)").format(len(catnames)+1)

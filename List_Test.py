@@ -1,5 +1,10 @@
 #List Test
 # By: Brad Raynaud
+
+def end():
+    exit()
+
+
 n = ""
 while n != exit:
     spam = ["Cat","Dog","Apple","Cade","Kale","Bob"]

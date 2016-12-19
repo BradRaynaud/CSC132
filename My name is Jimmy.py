@@ -1,6 +1,9 @@
 # printing little jimmy and Incrementing
 # By:Brad Raynaud
 
+def end():
+    exit()
+
 jimmy_count = 0
 print("How many?")
 n = input()

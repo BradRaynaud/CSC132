@@ -1,6 +1,9 @@
 # Simple Password program
 # By Brad Raynaud
 
+def end():
+    exit()
+
 n = 0
 password = ""
 correct_pass = "Swordfish"
