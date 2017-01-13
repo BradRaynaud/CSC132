@@ -6,13 +6,24 @@
 import math
 
 # Python program to check if the input number is prime or not
+num = 1
+n = 0
+assignment = 600851475143
+check = int(math.sqrt(assignment))
+Hfactor = 0
 
-def primes_sieve2(limit):
-    a = [True] * limit                          # Initialize the primality list
-    a[0] = a[1] = False
+def prime_check(x):
+    n = 2
+    while n != x - 1:
+        if x % n == 0:
+            return(1)
+        n += 1
+    return(0)
 
-    for (i, isprime) in enumerate(a):
-        if isprime:
-            yield i
-            for n in xrange(i*i, limit, i):     # Mark factors non-prime
-                a[n] = False
+
+while num != check:
+    if check % num == 0 and prime_check(num) == 0:
+        Hfactor = num
+        print Hfactor
+    num += 1
+
