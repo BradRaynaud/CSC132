@@ -1,5 +1,3 @@
-kale = 100
-
-print "Hello world {}".format(kale)
-print kale
-print "Hello world"
+yolo = str("Hello")
+print len(yolo)
+print yolo[4]
