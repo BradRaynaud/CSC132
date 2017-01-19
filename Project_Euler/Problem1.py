@@ -23,3 +23,4 @@ while num3 < 1000:
     if num3 < 1000:
         total -= num3
 print total
+
