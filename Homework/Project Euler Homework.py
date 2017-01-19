@@ -16,4 +16,4 @@ def problem1():
         num += 1
     return total
 
-print "{}".format(problem1())
+print "The sum of all multiples 3 and 5 below 1000 are{}".format(problem1())
