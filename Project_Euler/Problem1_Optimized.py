@@ -8,4 +8,3 @@ while num < 1000:
     if num % 15 == 0:
         total -= num
     num += 1
-return total
