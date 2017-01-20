@@ -10,7 +10,6 @@ x1 = 1
 x2 = 0
 current = 0
 total = 0
-
 while current < 4000000:
     current = x1 + x2
     if current % 2 == 0:
