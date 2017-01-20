@@ -27,5 +27,5 @@ def problem2():
         x1 = x2 # shifts x2 to x1 to find next Fibonacci value
         x2 = current # Stores Current
     return total # Returns Answer
-print "The sum of all multiples 3 and 5 below 1000 are {}".format(problem1())
+print "The sum of all multiples of 3 or 5 below 1000 is {}".format(problem1())
 print "The sum of all even-valued Fibonacci terms not exceeding four million is {}".format(problem2())
