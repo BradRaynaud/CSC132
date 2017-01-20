@@ -5,7 +5,7 @@ for die1 in range(1,7):
     for die2 in range(1,7):
         dice_sum = die1 + die2
         dice_sums[dice_sum-2]+= 1
-        print"{}\t{}\t{}".format(dice_sums,die1,die2,dice_sum)
+        print"{}\t{}\t{}".format(die1,die2,dice_sum)
 
 print"\tSum\tFreq\tProb"
 for i in range(len(dice_sums)):
