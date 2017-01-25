@@ -18,13 +18,11 @@ def prime_check(x):
             return(1)
         n += 1
     return(0)
-print check
 while num < check:
     if num % 2 == 1:
         if prime_check(num) == 0:
             if assignment % num == 0:
                 Hfactor = num
-                print num
     num += 1
 
 
