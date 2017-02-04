@@ -3,12 +3,12 @@
 #blueprint for a room
 class Room(object):
     #the constructor
-    def __init__(self,name):
+    def __init__(self, name):
         self.name = name
         self.exits = []
         self.exitLocations = []
         self.items = []
-        self.itemDescriptables = []
+        self.itemDescriptions = []
         self.grabbables= []
 
         @property
@@ -60,7 +60,7 @@ class Room(object):
 
         def addExit(self,exit,room):
             self._exits.append(exit)
-            self._exitlocations.append(room)
+            self._exitLocations.append(room)
 
         def addItem(self, item, desc):
             self._items.append(item)
@@ -143,7 +143,7 @@ while True:
 
     # current room is none player is dead and exit game
     if currentRoom == None:
-        death()
+        #death()
         break
 
     #prompt the player for input
