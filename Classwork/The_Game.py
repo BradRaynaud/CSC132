@@ -125,3 +125,95 @@ def createRooms():
 
 inventory = [] # nothing in inventory
 createRooms() # creates the rooms
+
+# play forever (until game is over or player asks to quit)
+while True:
+    # Sets status so player has situational awareness
+    # The status has room and inventory information
+    status = "{} \n You are carrying: {}\n".format(currentRoom, inventory)
+
+    #if current room is none the player is dead and game over
+    # above condition only happens when the player goes south when in room 4
+    if currentRoom == None:
+        status = "you are dead."
+
+    # Display status
+    print "=============================================================="
+    print status
+
+    # current room is none player is dead and exit game
+    if currentRoom == None:
+        death()
+        break
+
+    #prompt the player for input
+    # game supports simple language <verb> <noun>
+    # valid verbs are go, look, and take
+    # valid nouns depend on the verb
+    # use raw_input here to treat input as a string instead of a numeric value
+    action = raw_input("What to do? ")
+    # Set users input to lowercase for easier comparison
+    action = action.lower()
+    # exit the game if the player wants to leave (supports quit exit or bye
+    if (action == "quit" or action == "exit" or action == "bye"):
+        break
+    # set a default response
+    response = "I don't understand. Try Verb Noun Valid verbs are go, look, and take"
+    # splits input into words (words are separated by spaces)
+    words = action.split()
+    # the game only undertands two word inputs
+    if len(words) == 2:
+        # isolate the verb and noun
+        verb = words[0]
+        noun = words[1]
+
+        # the verb is: go
+        if verb == "go":
+            # sets default response
+            response = "invalid exit."
+
+            # check for valid exits in current room
+            for i in range(len(currentRoom.exits)):
+                # a valid exit is found
+                if noun  == currentRoom.exits[i]:
+                    # change the current room to the one that is
+                    # associated with the specified exit
+                    currentRoom = currentRoom.exitLocations[i]
+
+                    #set the response (success)
+                    response = "room changed"
+                    # no need to check any more exits
+                    break
+
+        # The verb is: look
+        elif verb == "look":
+            # sets a default response
+            response = "I dont see that item"
+            # check for valid items in the current room
+            for i in range(len(currentRoom.items)):
+                # a valid item is found
+                if noun == currentRoom.items[i]:
+                    # sets the response to item's description
+                    response = currentRoom.itemDescriptions[i]
+                    # no need to check any more items
+                    break
+
+        # the verb is: take
+        elif verb == "take":
+            # sets a default response
+            response = "I dont see that item."
+            # checks for valid grabbable items in the current room
+            for grabbable in currentRoom.grabbables:
+                # a valid grabbable was found
+                if noun == grabbable:
+                    # add grabbable to players inventory
+                    inventory.append(grabbable)
+                    # remove grabbable from room
+                    currentRoom.delGrabbable(grabbable)
+                    # set the response (success)
+                    response = "item grabbed"
+                    # no need to check for more grabbables
+                    break
+
+     # display the response
+    print "\n{}".format(response)
