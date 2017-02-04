@@ -11,78 +11,78 @@ class Room(object):
         self.itemDescriptions = []
         self.grabbables= []
 
-        @property
-        def name(self):
-            return self._name
-        @name.setter
-        def name(self,value):
-            self._name = value
+    @property
+    def name(self):
+        return self._name
+    @name.setter
+    def name(self,value):
+        self._name = value
 
-        @property
-        def exits(self):
-            return self._exits
+    @property
+    def exits(self):
+        return self._exits
 
-        @exits.setter
-        def exits(self,value):
-            self._exits = value
+    @exits.setter
+    def exits(self,value):
+        self._exits = value
 
-        @property
-        def exitLocations(self):
-            return self._exitLocations
+    @property
+    def exitLocations(self):
+        return self._exitLocations
 
-        @exitLocations.setter
-        def exitLocations(self,value):
-            self._exitLocations = value
+    @exitLocations.setter
+    def exitLocations(self,value):
+        self._exitLocations = value
 
-        @property
-        def items(self):
-            return self._items
+    @property
+    def items(self):
+        return self._items
 
-        @items.setter
-        def items(self,value):
-            self._items = value
+    @items.setter
+    def items(self,value):
+        self._items = value
 
-        @property
-        def itemDescriptions(self):
-            return self._itemDescriptions
+    @property
+    def itemDescriptions(self):
+        return self._itemDescriptions
 
-        @itemDescriptions.setter
-        def itemDescriptions(self,value):
-            self._itemDesciptions = value
+    @itemDescriptions.setter
+    def itemDescriptions(self,value):
+        self._itemDesciptions = value
 
-        @property
-        def grabbables(self):
-            return self._grabbables
+    @property
+    def grabbables(self):
+        return self._grabbables
 
-        @grabbables.setter
-        def grabbables(self,value):
-            self._grabbables = value
+    @grabbables.setter
+    def grabbables(self,value):
+        self._grabbables = value
 
-        def addExit(self,exit,room):
-            self._exits.append(exit)
-            self._exitLocations.append(room)
+    def addExit(self,exit,room):
+        self._exits.append(exit)
+        self._exitLocations.append(room)
 
-        def addItem(self, item, desc):
-            self._items.append(item)
-            self._itemDescriptions.append(desc)
+    def addItem(self, item, desc):
+        self._items.append(item)
+        self._itemDescriptions.append(desc)
 
-        def addGrabbable(self,item):
-            self._grabbable.append(item)
+    def addGrabbable(self,item):
+        self._grabbables.append(item)
 
-        def delGrabbable(self,item):
-            self.grabbable.remove(item)
+    def delGrabbable(self,item):
+        self.grabbables.remove(item)
 
-        def __str__(self):
-            s = "You are in{}.\n".format(self.name)
+    def __str__(self):
+        s = "You are in{}.\n".format(self.name)
 
-            s += "You see:  "
-            for item in self.items:
-                s += item + "  "
-            s += "\n"
-            s += "Exits:  "
-            for exit in self.exits:
-                s += exit + "  "
-            return s
+        s += "You see:  "
+        for item in self.items:
+            s += item + "  "
+        s += "\n"
+        s += "Exits:  "
+        for exit in self.exits:
+            s += exit + "  "
+        return s
 ###################################################
 # creates the rooms
 
@@ -98,11 +98,11 @@ def createRooms():
     r1.addExit("south", r3)
     r1.addGrabbable("key")
     r1.addItem("chair", "It is made of wicker and no one is sitting on it.")
-    r1.additem("table", "it is made of oak. A golden key rests on it")
+    r1.addItem("table", "it is made of oak. A golden key rests on it")
 
     r2.addExit("west", r1)
     r2.addExit("south", r4)
-    r2.addItem("rug"), "It is nice and Indian. It also needs to be vacuumed"
+    r2.addItem("rug", "It is nice and Indian. It also needs to be vacuumed")
     r2.addItem("fireplace", "It is full of ashes.")
 
     r3.addExit("north", r1)
