@@ -1,21 +1,21 @@
 
 
-#blueprint for a room
+# Blueprint for a room
 class Room(object):
-    #the constructor
+    # The constructor
     def __init__(self, name):
         self.name = name
         self.exits = []
         self.exitLocations = []
         self.items = []
         self.itemDescriptions = []
-        self.grabbables= []
+        self.grabbables = []
 
     @property
     def name(self):
         return self._name
     @name.setter
-    def name(self,value):
+    def name(self, value):
         self._name = value
 
     @property
@@ -23,7 +23,7 @@ class Room(object):
         return self._exits
 
     @exits.setter
-    def exits(self,value):
+    def exits(self, value):
         self._exits = value
 
     @property
@@ -31,7 +31,7 @@ class Room(object):
         return self._exitLocations
 
     @exitLocations.setter
-    def exitLocations(self,value):
+    def exitLocations(self, value):
         self._exitLocations = value
 
     @property
@@ -39,7 +39,7 @@ class Room(object):
         return self._items
 
     @items.setter
-    def items(self,value):
+    def items(self, value):
         self._items = value
 
     @property
@@ -47,18 +47,18 @@ class Room(object):
         return self._itemDescriptions
 
     @itemDescriptions.setter
-    def itemDescriptions(self,value):
-        self._itemDesciptions = value
+    def itemDescriptions(self, value):
+        self._itemDescriptions = value
 
     @property
     def grabbables(self):
         return self._grabbables
 
     @grabbables.setter
-    def grabbables(self,value):
+    def grabbables(self, value):
         self._grabbables = value
 
-    def addExit(self,exit,room):
+    def addExit(self, exit, room):
         self._exits.append(exit)
         self._exitLocations.append(room)
 
@@ -120,6 +120,35 @@ def createRooms():
 
     currentRoom = r1
 
+# displays an appropriate "message" when the player dies
+# yes, this is intentionally obfuscated!
+def death():
+    print " " * 17 + "u" * 7
+    print " " * 13 + "u" * 2 + "$" * 11 + "u" * 2
+    print " " * 10 + "u" * 2 + "$" * 17 + "u" * 2
+    print " " * 9 + "u" + "$" * 21 + "u"
+    print " " * 8 + "u" + "$" * 23 + "u"
+    print " " * 7 + "u" + "$" * 25 + "u"
+    print " " * 7 + "u" + "$" * 25 + "u"
+    print " " * 7 + "u" + "$" * 6 + "\"" + " " * 3 + "\"" + "$" * 3 +"\"" + " " * 3 + "\"" + "$" * 6 + "u"
+    print " " * 7 + "\"" + "$" * 4 + "\"" + " " * 6 + "u$u" + " " * 7+ "$" * 4 + "\""
+    print " " * 8 + "$" * 3 + "u" + " " * 7 + "u$u" + " " * 7 + "u" +"$" * 3
+    print " " * 8 + "$" * 3 + "u" + " " * 6 + "u" + "$" * 3 + "u" + " " * 6 + "u" + "$" * 3
+    print " " * 9 + "\"" + "$" * 4 + "u" * 2 + "$" * 3 + " " * 3 +"$" * 3 + "u" * 2 + "$" * 4 + "\""
+    print " " * 10 + "\"" + "$" * 7 + "\"" + " " * 3 + "\"" + "$" * 7+ "\""
+    print " " * 12 + "u" + "$" * 7 + "u" + "$" * 7 + "u"
+    print " " * 13 + "u$\"$\"$\"$\"$\"$\"$u"
+    print " " * 2 + "u" * 3 + " " * 8 + "$" * 2 + "u$ $ $ $ $u" + "$"* 2 + " " * 7 + "u" * 3
+    print " u" + "$" * 4 + " " * 8 + "$" * 5 + "u$u$u" + "$" * 3 + " " * 7 + "u" + "$" * 4
+    print " " * 2 + "$" * 5 + "u" * 2 + " " * 6 + "\"" + "$" * 9 +"\"" + " " * 5 + "u" * 2 + "$" * 6
+    print "u" + "$" * 11 + "u" * 2 + " " * 4 + "\"" * 5 + " " * 4 +"u" * 4 + "$" * 10
+    print "$" * 4 + "\"" * 3 + "$" * 10 + "u" * 3 + " " * 3 + "u" * 2+ "$" * 9 + "\"" * 3 + "$" * 3 + "\""
+    print " " + "\"" * 3 + " " * 6 + "\"" * 2 + "$" * 11 + "u" * 2 +" " + "\"" * 2 + "$" + "\"" * 3
+    print " " * 11 + "u" * 4 + " \"\"" + "$" * 10 + "u" * 3
+    print " " * 2 + "u" + "$" * 3 + "u" * 3 + "$" * 9 + "u" * 2 +" \"\"" + "$" * 11 + "u" * 3 + "$" * 3
+    print " " * 2 + "$" * 10 + "\"" * 4 + " " * 11 + "\"\"" + "$" *11 + "\""
+    print " " * 3 + "\"" + "$" * 5 + "\"" + " " * 22 + "\"\"" + "$" *4 + "\"\""
+    print " " * 5 + "$" * 3 + "\"" + " " * 25 + "$" * 4 + "\""
 ############################################
 #START THE GAME
 
@@ -143,7 +172,7 @@ while True:
 
     # current room is none player is dead and exit game
     if currentRoom == None:
-        #death()
+        death()
         break
 
     #prompt the player for input
