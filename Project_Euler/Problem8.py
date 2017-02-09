@@ -8,7 +8,6 @@ n=0
 total = 0
 for digit in b:
     c.append (int(digit))
-print c
 
 while n!= 986:
   locmax = c[n]*c[n+1]*c[n+2]*c[n+3]*c[n+4]*c[n+5]*c[n+6]*c[n+7]*c[n+8]*c[n+9]*c[n+10]*c[n+11]*c[n+12]
