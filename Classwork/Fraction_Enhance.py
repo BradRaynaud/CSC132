@@ -62,18 +62,45 @@ class Fraction(object):
         if self.num == 0:
             self.den = 1
     # calculates and returns the sum of two fractions
-    def add(self, other):
+    def __add__(self, other):
         num = (self.num * other.den) + (other.num * self.den)
         den = self.den * other.den
         sum = Fraction(num, den)
         sum.reduce()
         return sum
+    # calculates and returns the difference of two fractions
+    def __sub__(self, other):
+        num = (self.num * other.den) - (other.num * self.den)
+        den = self.den * other.den
+        sub = Fraction(num,den)
+        sub.reduce()
+        return sub
+    # calculates and returns the product of two fractions
+    def __mul__(self, other):
+        num = self.num * other.num
+        den = self.den * other.den
+        mul = Fraction(num, den)
+        mul.reduce()
+        return mul
+
+    # calculates and returns the division of two fractions
+    def __div__(self, other):
+        num = self.num * other.den
+        den = self.den * other.num
+        div = Fraction(num, den)
+        div.reduce()
+        return div
+
 # main program
+
+
 f1 = Fraction(1, 2)
 f2= Fraction(1, 4)
-f3 = f1.add(f2)
 
 print f1
 print f2
-print f3
+print f1 + f2
+print f1 - f2
+print f1 * f2
+#print f1 / f2
 
