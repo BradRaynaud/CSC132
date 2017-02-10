@@ -10,7 +10,7 @@
 # Upon opening of the box the first key was removed and the window_key was added
 # Using that key you are able to use the go command on the window
 #
-# I was unable to implement a case where the window returned a response "The window is locked"
+#
 # Commands in order to complete game: 1) take key 2) go east 3) go stairs 4) use puzzle_box 5) go stairs 6) go south
 #  7) go window
 #
@@ -183,7 +183,7 @@ def createRooms():
     # add grabbable to r4
     r4.addGrabbable("6-pack")
     # add item to r4
-    r4.addItem("Brew_Rig", "Gourd is brewing some sort of oatmeal stout on the rig. A 6-pack is resting beside it.", "Better leaving brewing to Gourd")
+    r4.addItem("brew_rig", "Gourd is brewing some sort of oatmeal stout on the rig. A 6-pack is resting beside it.", "Better leaving brewing to Gourd")
 
     # add exit to r5(attic)
     r5.addExit("stairs", r2)  # Adds an exit to the attic
@@ -287,7 +287,7 @@ while True:
                                 currentRoom = currentRoom.exitLocations[i]
                                 break
                             else:
-                                response = "The window is locked" # was unable to make this response work
+                                response = "The window is locked" # sets response if key is not found
                     else:
                         # changes the current room to the one associated with specified exit
                         currentRoom = currentRoom.exitLocations[i]
