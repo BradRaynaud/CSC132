@@ -224,7 +224,7 @@ def death():
 ############################################
 #START THE GAME
 
-inventory = [] # nothing in inventory
+inventory = [ ] # nothing in inventory
 createRooms() # creates the rooms
 
 # play forever (until game is over or player asks to quit)
@@ -334,6 +334,7 @@ while True:
                         # looks for item in inventory if item not found response defaults to "The key from downstairs might unlock this"
                         for item in inventory:
                             if item == "key":
+
                                 response = "The box opens and you find another key" # creates a new response
                                 inventory.append("window_key") # adds window_key to inventory
                                 inventory.remove(item) # removes key from inventory

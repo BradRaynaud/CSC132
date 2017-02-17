@@ -3,7 +3,7 @@ class Fraction(object):
     # by default fraction is 0/1
     def __init__(self, num = 0, den = 1):
         self.num = num
-        # make sure not to set the denominatior to zero if specified
+        # make sure not to set the denominator to zero if specified
         if den == 0:
             den = 1
         self.den = den
@@ -102,5 +102,5 @@ print f2
 print f1 + f2
 print f1 - f2
 print f1 * f2
-#print f1 / f2
+print f1 / f2
 
