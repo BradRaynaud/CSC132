@@ -71,35 +71,35 @@ class Fraction(object):
 
     # calculates and returns the sum of two fractions
     def __add__(self, other):
-        num = (self.num * other.den) + (other.num * self.den)
-        den = self.den * other.den
-        sum = Fraction(num, den)
-        sum.reduce()
-        return sum
+        num = (self.num * other.den) + (other.num * self.den)  # cross multiplies then adds the fractions
+        den = self.den * other.den  # multiplies the denominator
+        sum = Fraction(num, den)  # creates the fractions
+        sum.reduce()  # reduces the fraction
+        return sum  # returns the result
 
     # calculates and returns the difference of two fractions
     def __sub__(self, other):
-        num = (self.num * other.den) - (other.num * self.den)
-        den = self.den * other.den
-        sub = Fraction(num, den)
-        sub.reduce()
-        return sub
+        num = (self.num * other.den) - (other.num * self.den)  # cross multiplies then subtracts the fractions
+        den = self.den * other.den  # multiplies the denominator
+        sub = Fraction(num, den)  # creates the fractions
+        sub.reduce()  # reduces the fraction
+        return sub  # returns the result
 
     # calculates and returns the product of two fractions
     def __mul__(self, other):
-        num = self.num * other.num
-        den = self.den * other.den
-        mul = Fraction(num, den)
-        mul.reduce()
-        return mul
+        num = self.num * other.num  # multiplies the numerators
+        den = self.den * other.den  # multiplies the denominators
+        mul = Fraction(num, den)  # creates the fractions
+        mul.reduce()  # reduces the fraction
+        return mul  # returns the result
 
     # calculates and returns the division of two fractions
     def __div__(self, other):
-        num = self.num * other.den
-        den = self.den * other.num
-        div = Fraction(num, den)
-        div.reduce()
-        return div
+        num = self.num * other.den  # cross multiplies
+        den = self.den * other.num  # cross multiplies
+        div = Fraction(num, den)  # creates the fractions
+        div.reduce()  # reduces the fraction
+        return div  # returns the result
 
 
 # ***DO NOT MODIFY OR REMOVE ANYTHING BELOW THIS POINT!***
