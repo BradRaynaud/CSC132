@@ -4,6 +4,8 @@
 # Description: 
 ######################################################################################################################
 from math import sqrt
+
+
 # the 2D point class
 class Point(object):
     def __init__(self, x=0.0, y=0.0):
@@ -30,12 +32,15 @@ class Point(object):
         return "({},{})".format(self.x, self.y)
 
     def dist(self, arg):
-        return(sqrt((arg.x-self.x)**2+(arg.y-self.y)**2))
+        return (sqrt((arg.x - self.x) ** 2 + (arg.y - self.y) ** 2))
 
     def midpt(self, arg):
-        x = (float(self.x) + arg.x)/2
-        y = (float(self.y) + arg.y)/2
-        return(x,y)
+        x = (float(self.x) + arg.x) / 2
+        y = (float(self.y) + arg.y) / 2
+        return (x, y)
+
+    def __str__(self):
+        return "({},{})".format(self.x, self.y)
 
 ##########################################################
 # ***DO NOT MODIFY OR REMOVE ANYTHING BELOW THIS POINT!***
