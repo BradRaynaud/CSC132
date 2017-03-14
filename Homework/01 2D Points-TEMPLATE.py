@@ -1,12 +1,41 @@
 ######################################################################################################################
-# Name: 
-# Date: 
+# Name: Brad Raynaud
+# Date: 3/14/2017
 # Description: 
 ######################################################################################################################
-
+from math import sqrt
 # the 2D point class
 class Point(object):
-	# write your code for the point class here (and subsequently remove this comment)
+    def __init__(self, x=0.0, y=0.0):
+        self.x = x
+        self.y = y
+
+    @property
+    def x(self):
+        return self._x
+
+    @x.setter
+    def x(self, value):
+        self._x = value
+
+    @property
+    def y(self):
+        return self._y
+
+    @y.setter
+    def y(self, value):
+        self._y = value
+
+    def __str__(self):
+        return "({},{})".format(self.x, self.y)
+
+    def dist(self, arg):
+        return(sqrt((arg.x-self.x)**2+(arg.y-self.y)**2))
+
+    def midpt(self, arg):
+        x = (float(self.x) + arg.x)/2
+        y = (float(self.y) + arg.y)/2
+        return(x,y)
 
 ##########################################################
 # ***DO NOT MODIFY OR REMOVE ANYTHING BELOW THIS POINT!***
