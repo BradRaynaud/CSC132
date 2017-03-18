@@ -1,46 +1,51 @@
 ######################################################################################################################
 # Name: Brad Raynaud
-# Date: 3/14/2017
-# Description: 
+# Date: 3/17/2017
+# Description: This program furfills the requirements for the 2D points assignment
 ######################################################################################################################
-from math import sqrt
+from math import sqrt  # importing sqrt for distance function
 
 
 # the 2D point class
 class Point(object):
-    def __init__(self, x=0.0, y=0.0):
+    def __init__(self, x=0.0, y=0.0): # defaults x and y to 0.0 if information isn't provided
         self.x = x
         self.y = y
 
+    # Getter for x
     @property
     def x(self):
         return self._x
 
+    # Setter for x
     @x.setter
     def x(self, value):
-        self._x = value
+        self._x = float(value)
 
+    # Getter for y
     @property
     def y(self):
         return self._y
 
+    # Setter for y
     @y.setter
     def y(self, value):
-        self._y = value
+        self._y = float(value)
 
+    # Str function that returns the points in (x,y) format
     def __str__(self):
         return "({},{})".format(self.x, self.y)
 
+    # Function that calculates Distance between two points
     def dist(self, arg):
         return (sqrt((arg.x - self.x) ** 2 + (arg.y - self.y) ** 2))
 
+    # Function that calculates the midpoint between two points
     def midpt(self, arg):
-        x = (float(self.x) + arg.x) / 2
-        y = (float(self.y) + arg.y) / 2
+        x = (self.x + arg.x) / 2
+        y = (self.y + arg.y) / 2
         return (x, y)
 
-    def __str__(self):
-        return "({},{})".format(self.x, self.y)
 
 ##########################################################
 # ***DO NOT MODIFY OR REMOVE ANYTHING BELOW THIS POINT!***

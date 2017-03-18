@@ -1,0 +1,17 @@
+from Tkinter import *
+
+class App(Frame):
+    def __init__(self, master):
+        Frame.__init__(self, master)
+        self.button1 = Button(master, text="BYE!",fg = "red", command = self.quit)
+        self.button1.pack(side=RIGHT)
+        self.button2 = Button(master, text = "Say Something!", command = self.say)
+        self.button2.pack(side = LEFT)
+
+    def say(self):
+        print "Froot Loops!"
+
+
+window = Tk()
+app = App(window)
+window.mainloop()
