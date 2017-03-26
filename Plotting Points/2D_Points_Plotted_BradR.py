@@ -1,7 +1,7 @@
 ######################################################################################################################
-# Name: 
-# Date: 
-# Description: 
+# Name: Brad Raynaud
+# Date: 3/26/2017
+# Description: This program generates random points and plots them in a Python GUI
 ######################################################################################################################
 from random import randint
 from Tkinter import *
@@ -31,11 +31,9 @@ class Point(object):
 
 # the coordinate system class: (0,0) is in the top-left corner
 # inherits from the Canvas class of Tkinter
-class CoordinateSystem(Canvas,Point):
+class CoordinateSystem(Canvas):
     def __init__(self, master):
         Canvas.__init__(self, master, bg="white")
-        Point.__init__(self, master)
-
         self.pack(fill=BOTH, expand=1)
 
 
