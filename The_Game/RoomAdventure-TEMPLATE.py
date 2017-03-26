@@ -1,13 +1,16 @@
 ###########################################################################################
-# Name: 
-# Date: 
-# Description: 
+# Name: Brad Raynaud
+# Date: 3/26/2017
+# Description: This program adds a GUI to the Room Adventure activity
 ###########################################################################################
+# Imports
+
 from Tkinter import *
 
 
-# the room class
-# note that this class is fully implemented with dictionaries as illustrated in the lesson "More on Data Structures"
+##############################################
+# the Room class
+
 class Room(object):
     # the constructor
     def __init__(self, name, image):
@@ -106,8 +109,10 @@ class Room(object):
         return s
 
 
-# the game class
+#############################################
+# the Game class
 # inherits from the Frame class of Tkinter
+
 class Game(Frame):
     # the constructor
     def __init__(self, parent):
@@ -232,8 +237,8 @@ class Game(Frame):
         else:
             # otherwise, display the appropriate status
             Game.text.insert(END, str(Game.currentRoom) + \
-                "\nYou are carrying: " + str(Game.inventory) + \
-                "\n\n" + status)
+                             "\nYou are carrying: " + str(Game.inventory) + \
+                             "\n\n" + status)
             Game.text.config(state=DISABLED)
 
     # plays the game
@@ -246,7 +251,6 @@ class Game(Frame):
         self.setRoomImage()
         # set the current status
         self.setStatus("")
-
 
     # processes the player's input
     def process(self, event):
@@ -280,7 +284,6 @@ class Game(Frame):
             if (verb == "go"):
                 # set a default response
                 response = "Invalid exit."
-
 
                 # a valid exit is found
                 if noun in Game.currentRoom.exits:
@@ -325,13 +328,11 @@ class Game(Frame):
         # clear the player's input
         self.setStatus(response)
         self.setRoomImage()
-        Game.player_input.delete(0,END)
+        Game.player_input.delete(0, END)
 
-
-
-##########################################################
-
+#############################################
 # the default size of the GUI is 800x600
+
 WIDTH = 800
 HEIGHT = 600
 
