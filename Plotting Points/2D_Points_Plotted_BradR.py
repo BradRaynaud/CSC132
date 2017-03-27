@@ -6,27 +6,28 @@
 from random import randint
 from Tkinter import *
 
+
 # the 2D point class
 class Point(object):
-    def __init__(self,x = 0,y = 0):
+    def __init__(self, x=0, y=0):
         self.x = x
         self.y = y
+
     @property
     def x(self):
         return self._x
 
     @x.setter
     def x(self, value):
-        self._x = value
+        self._x = randint(0, WIDTH - 1)
 
     @property
     def y(self):
-        return self._x
+        return self._y
 
     @y.setter
     def y(self, value):
-        self._y = value
-
+        self._y = randint(0, HEIGHT - 1)
 
 
 # the coordinate system class: (0,0) is in the top-left corner
@@ -36,19 +37,17 @@ class CoordinateSystem(Canvas):
         Canvas.__init__(self, master, bg="white")
         self.pack(fill=BOTH, expand=1)
 
-
     def plotPoints(self, n):
         for i in range(n):
-            x = x = randint(0, WIDTH - 1)
-            y = randint(0, HEIGHT - 1)
-            self.plot(x, y)
+            i = Point()
+            self.plot(i.x, i.y)
 
     def plot(self, x, y):
-        color1 = COLORS[randint(0, len(COLORS)-1)]
-        color2 = COLORS[randint(0, len(COLORS)-1)]
-        self.create_oval(x, y, x + 2 * POINT_RADIUS, y + 2 * POINT_RADIUS, outline = color1, fill = color1)
+        color1 = COLORS[randint(0, len(COLORS) - 1)]
+        color2 = COLORS[randint(0, len(COLORS) - 1)]
+        self.create_oval(x, y, x + 2 * POINT_RADIUS, y + 2 * POINT_RADIUS, outline=color1, fill=color1)
 
-    # write your code for the coordinate system class here (and subsequently remove this comment)
+        # write your code for the coordinate system class here (and subsequently remove this comment)
 
 
 ##########################################################
