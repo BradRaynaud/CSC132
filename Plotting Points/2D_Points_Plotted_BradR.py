@@ -47,8 +47,6 @@ class CoordinateSystem(Canvas):
         color2 = COLORS[randint(0, len(COLORS) - 1)]
         self.create_oval(x, y, x + 2 * POINT_RADIUS, y + 2 * POINT_RADIUS, outline=color1, fill=color1)
 
-        # write your code for the coordinate system class here (and subsequently remove this comment)
-
 
 ##########################################################
 # ***DO NOT MODIFY OR REMOVE ANYTHING BELOW THIS POINT!***
