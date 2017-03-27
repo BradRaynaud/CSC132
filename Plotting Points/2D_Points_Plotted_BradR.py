@@ -19,7 +19,7 @@ class Point(object):
 
     @x.setter
     def x(self, value):
-        self._x = randint(0, WIDTH - 1)
+        self._x = value
 
     @property
     def y(self):
@@ -27,7 +27,7 @@ class Point(object):
 
     @y.setter
     def y(self, value):
-        self._y = randint(0, HEIGHT - 1)
+        self._y = value
 
 
 # the coordinate system class: (0,0) is in the top-left corner
@@ -39,13 +39,15 @@ class CoordinateSystem(Canvas):
 
     def plotPoints(self, n):
         for i in range(n):
-            i = Point()
-            self.plot(i.x, i.y)
+            randomX = randint(0, WIDTH - 1)
+            randomY = randint(0, HEIGHT - 1)
+            i = Point(randomX,randomY)
+            self.plot(i)
 
-    def plot(self, x, y):
+    def plot(self, point):
         color1 = COLORS[randint(0, len(COLORS) - 1)]
         color2 = COLORS[randint(0, len(COLORS) - 1)]
-        self.create_oval(x, y, x + 2 * POINT_RADIUS, y + 2 * POINT_RADIUS, outline=color1, fill=color1)
+        self.create_oval(point.x, point.y, point.x + 2 * POINT_RADIUS, point.y + 2 * POINT_RADIUS, outline=color1, fill=color1)
 
 
 ##########################################################
