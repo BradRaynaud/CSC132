@@ -51,6 +51,7 @@ class CoordinateSystem(Canvas):
             randomY = randint(0, HEIGHT - 1)
             # Creates an instance of the Point class using the two previously generated values
             i = Point(randomX, randomY)
+            # Plots the point i
             self.plot(i)
 
     # Function that plots ovals on the Tkinter Canvas
