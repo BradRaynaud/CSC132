@@ -1,6 +1,6 @@
 class Person(object):
-    def __init__(self):
-        name = str
+    def __init__(self, pname):
+        self.name = pname
 
     def eat(self):
         pass
@@ -10,14 +10,14 @@ class Person(object):
 
 
 class Adult(Person):
-    def __init__(self):
-        Person.__init__(self)
-        responsibilities = str
+    def __init__(self, dareresponse):
+        Person.__init__(self, "John")
+        self.responsibilities = dareresponse
 
 
 class Child(Person):
     def __init__(self):
-        Person.__init__(self)
+        Person.__init__(self, "Jane")
 
     def procrastinate(self):
         pass
@@ -32,7 +32,7 @@ class Programmer(Adult):
 
 
 class Student(Adult, Child):
-    def __init__(self):
-        Adult.__init__(self)
+    def __init__(self, dagrades):
+        Adult.__init__(self, "Pass Tests")
         Child.__init__(self)
-        grades = float
+        self.grades = float(dagrades)
