@@ -13,18 +13,22 @@ class Point(object):
         self.x = x
         self.y = y
 
+    # Getter for x
     @property
     def x(self):
         return self._x
 
+    # Setter for x
     @x.setter
     def x(self, value):
         self._x = value
 
+    # Getter for y
     @property
     def y(self):
         return self._y
 
+    # Setter for y
     @y.setter
     def y(self, value):
         self._y = value
@@ -34,20 +38,28 @@ class Point(object):
 # inherits from the Canvas class of Tkinter
 class CoordinateSystem(Canvas):
     def __init__(self, master):
+        # calls the constructor for the Canvas class
         Canvas.__init__(self, master, bg="white")
         self.pack(fill=BOTH, expand=1)
 
     def plotPoints(self, n):
+        # Repeats n times
         for i in range(n):
+            # Generates a random x value in the bounds of the Canvas
             randomX = randint(0, WIDTH - 1)
+            # Generates a random y value in the bounds of the Canvas
             randomY = randint(0, HEIGHT - 1)
-            i = Point(randomX,randomY)
+            # Creates an instance of the Point class using the two previously generated values
+            i = Point(randomX, randomY)
             self.plot(i)
 
+    # Function that plots ovals on the Tkinter Canvas
     def plot(self, point):
+        # Randomly choose a color for the circle
         color1 = COLORS[randint(0, len(COLORS) - 1)]
-        color2 = COLORS[randint(0, len(COLORS) - 1)]
-        self.create_oval(point.x, point.y, point.x + 2 * POINT_RADIUS, point.y + 2 * POINT_RADIUS, outline=color1, fill=color1)
+        # Creates an oval using a Point and sets the Color to color1
+        self.create_oval(point.x, point.y, point.x + 2 * POINT_RADIUS, point.y + 2 * POINT_RADIUS, outline=color1,
+                         fill=color1)
 
 
 ##########################################################
