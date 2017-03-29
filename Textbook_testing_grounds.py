@@ -1,2 +1,6 @@
-for i in range(20,10,-1):
-    print i
+
+from random import randint
+
+i = [[x,x**2] for x in range(1,11)]
+
+print i
