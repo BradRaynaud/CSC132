@@ -8,6 +8,7 @@
 from Tkinter import *
 from time import sleep
 
+
 ##############################################
 # the Room class
 
@@ -67,15 +68,15 @@ class Room(object):
     # adds an exit to the room
     # the exit is a string (e.g., north)
     # the room is an instance of a room
-    def addExit(self, exit, room, islocked = False, key = None):
-        # append the exit and room to the appropriate dictionary
+    def addExit(self, exit, room, islocked=False, key=None):
+        # append the exit, room, islocked, and key to the appropriate dictionary
         self._exits[exit] = [room, islocked, key]
 
     # adds an item to the room
     # the item is a string (e.g., table)
     # the desc is a string that describes the item (e.g., it is made of wood)
     def addItem(self, item, desc, usage):
-        # append the item and description to the appropriate dictionary
+        # append the item, description, and usage to the appropriate dictionary
         self._items[item] = [desc, usage]
 
     # adds a grabbable item to the room
@@ -171,7 +172,7 @@ class Game(Frame):
 
         # add exit to r5(attic)
         r5.addExit("stairs", r2)  # Adds an exit to the attic
-        # adds items to Exit
+        # adds items to r5
         r5.addItem("cake", "It looks tasty", "Made of chocolate, but tastes like lies")  # creates item: cake
         r5.addItem("puzzle_box", "Looks intricate but it does have a keyhole",
                    "The key from downstairs might unlock this")  # Creates item: puzzle_box
@@ -300,17 +301,20 @@ class Game(Frame):
                 # a valid exit is found
                 if noun in Game.currentRoom.exits:
                     # checks to see if room is locked
-                    if Game.currentRoom.exits[noun][1] == False:
+                    if Game.currentRoom.exits[noun][1] == False:  # if room is unlocked
                         # change the current room to the one that is associated with the specified exit
                         Game.currentRoom = Game.currentRoom.exits[noun][0]
                         # set the response (success)
                         response = "Room changed."
-                        # no need to check any more exits
-                    elif Game.currentRoom.exits[noun][1]== True:
+                    elif Game.currentRoom.exits[noun][1] == True:  # if room is locked
+                        # sets default response
                         response = "It is locked."
+                        # checks inventory for key
                         for item in Game.inventory:
-                            if item == Game.currentRoom.exits[noun][2]:
-                                Game.currentRoom = Game.currentRoom.exits[noun][0]
+                            if item == Game.currentRoom.exits[noun][2]:  # if item is equal to the required key
+                                # change the current room to the one that is associated with the specified exit
+                                Game.currentRoom = Game.currentRoom.exits[noun][0]  #
+                                # set the response (success)
                                 response = "Room changed"
 
 
@@ -335,7 +339,7 @@ class Game(Frame):
                 # check for valid grabbable items in the current room
                 for grabbable in Game.currentRoom.grabbables:
                     # a valid grabbable item is found
-                    if (noun == grabbable):
+                    if noun == grabbable:
                         # add the grabbable item to the player's inventory
                         Game.inventory.append(grabbable)
                         # remove the grabbable item from the room
@@ -357,11 +361,13 @@ class Game(Frame):
                     response = Game.currentRoom.items[noun][1]
                     # if player has key unlock puzzle box and remove key and add window_key to inv
                     if noun == "puzzle_box":
+                        # checks inventory for item
                         for item in Game.inventory:
+                            # sets response
                             response = "You unlock the box and find another key"
                             if item == "key":
-                                Game.inventory.append("window_key")
-                                Game.inventory.remove("key")
+                                Game.inventory.append("window_key")  # adds window_key to inventory
+                                Game.inventory.remove("key")  # remove key from inventory
 
         # Display the response on the right of the GUI
         # Display the room's image on the left of the GUI
