@@ -3,6 +3,16 @@
 # Date: 3/26/2017
 # Description: This program adds a GUI to the Room Adventure activity
 ###########################################################################################
+# List of improvements
+# Added a 5th room with a puzzle box and a cake
+# Added a use verb and provided usage text for all items in the game
+# The Go verb and addExit were modified to allow any exit to be locked
+# The south exit of room 4 can only be accessed after retrieving the key from the puzzle box
+# the puzzle box can only be opened using the key from room 1
+##############################################
+# Commands required to complete game
+# 1) look table 2) take key 3) go east 4) go stairs 5) use puzzle_box 6) go stairs 7) go south 8) go south
+##############################################
 # Imports
 
 from Tkinter import *
@@ -131,7 +141,7 @@ class Game(Frame):
         r2 = Room("Room 2", "room2.gif")
         r3 = Room("Room 3", "room3.gif")
         r4 = Room("Room 4", "room4.gif")
-        r5 = Room("Room 5", "room4.gif")
+        r5 = Room("Room 5", "Attic.gif")
 
         # add exits to room 1
         r1.addExit("east", r2)  # to the east of room 1 is room 2
