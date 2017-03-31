@@ -12,3 +12,8 @@ print form
 
 form["ManUTD"] = "DWWDW"
 print form
+
+
+
+i = {"test":["first", "last"]}
+print i["test"][0]

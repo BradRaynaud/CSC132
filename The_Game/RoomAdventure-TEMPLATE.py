@@ -6,7 +6,7 @@
 # Imports
 
 from Tkinter import *
-
+from time import sleep
 
 ##############################################
 # the Room class
@@ -67,16 +67,16 @@ class Room(object):
     # adds an exit to the room
     # the exit is a string (e.g., north)
     # the room is an instance of a room
-    def addExit(self, exit, room):
+    def addExit(self, exit, room, islocked = False, key = None):
         # append the exit and room to the appropriate dictionary
-        self._exits[exit] = room
+        self._exits[exit] = [room, islocked, key]
 
     # adds an item to the room
     # the item is a string (e.g., table)
     # the desc is a string that describes the item (e.g., it is made of wood)
-    def addItem(self, item, desc):
+    def addItem(self, item, desc, usage):
         # append the item and description to the appropriate dictionary
-        self._items[item] = desc
+        self._items[item] = [desc, usage]
 
     # adds a grabbable item to the room
     # the item is a string (e.g., key)
@@ -130,20 +130,23 @@ class Game(Frame):
         r2 = Room("Room 2", "room2.gif")
         r3 = Room("Room 3", "room3.gif")
         r4 = Room("Room 4", "room4.gif")
+        r5 = Room("Room 5", "room4.gif")
+
         # add exits to room 1
         r1.addExit("east", r2)  # to the east of room 1 is room 2
         r1.addExit("south", r3)
         # add grabbables to room 1
         r1.addGrabbable("key")
         # add items to room 1
-        r1.addItem("chair", "It is made of wicker and no one is sitting on it.")
-        r1.addItem("table", "It is made of oak. A golden key rests on it.")
+        r1.addItem("chair", "It is made of wicker and no one is sitting on it.", "I could sit in this, but I won't")
+        r1.addItem("table", "it is made of oak. A golden key rests on it", "I can't use this")
         # add exits to room 2
+        r2.addExit("stairs", r5)
         r2.addExit("west", r1)
         r2.addExit("south", r4)
         # add items to room 2
-        r2.addItem("rug", "It is nice and Indian. It also needs to be vacuumed.")
-        r2.addItem("fireplace", "It is full of ashes.")
+        r2.addItem("rug", "It is nice and Indian. It also needs to be vacuumed", "I can't use this, too dusty")
+        r2.addItem("fireplace", "It is full of ashes.", "Don't want to burn the house down")
 
         # add exits to room 3
         r3.addExit("north", r1)
@@ -151,19 +154,28 @@ class Game(Frame):
         # add grabbables to room 3
         r3.addGrabbable("book")
         # add items to room 3
-        r3.addItem("bookshelves", "They are empty. Go figure.")
-        r3.addItem("statue", "There is nothing special about it.")
-        r3.addItem("desk", "The statue is resting on it. So is a book.")
+        r3.addItem("bookshelves", "They are empty. Go figure.", "Books eww")
+        r3.addItem("statue", "There is nothing special about it", "Nothing happens")
+        r3.addItem("desk", "The statue is resting on it. So is a book.", "I could study, But I won't")
 
         # add exits to room 4
         r4.addExit("north", r2)
         r4.addExit("west", r3)
-        r4.addExit("south", None)  # DEATH!
+        r4.addExit("south", None, True, "window_key")  # DEATH!
         # add grabbables to room 4
         r4.addGrabbable("6-pack")
         # add items to room 4
-        r4.addItem("brew_rig", "Gourd is brewing some sort of oatmeal stout on the brewrig.A 6 - pack is resting beside\
-        it.")
+        r4.addItem("brew_rig",
+                   "Gourd is brewing some sort of oatmeal stout on the rig. A 6-pack is resting beside it.",
+                   "Better leaving brewing to Gourd")
+
+        # add exit to r5(attic)
+        r5.addExit("stairs", r2)  # Adds an exit to the attic
+        # adds items to Exit
+        r5.addItem("cake", "It looks tasty", "Made of chocolate, but tastes like lies")  # creates item: cake
+        r5.addItem("puzzle_box", "Looks intricate but it does have a keyhole",
+                   "The key from downstairs might unlock this")  # Creates item: puzzle_box
+
         # set room 1 as the current room at the beginning of the
         # game
         Game.currentRoom = r1
@@ -233,7 +245,7 @@ class Game(Frame):
         Game.text.delete("1.0", END)
         if (Game.currentRoom == None):
             # if dead, let the player know
-            Game.text.insert(END, "You are dead. The only thing you can do now is quit.\n")
+            Game.text.insert(END, "\nYou are dead. The only thing you can do now is quit.\n")
         else:
             # otherwise, display the appropriate status
             Game.text.insert(END, str(Game.currentRoom) + \
@@ -263,7 +275,7 @@ class Game(Frame):
         if (action == "quit" or action == "exit" or action == "bye"):
             quit(0)
         # set a default response
-        response = "I don't understand.  Try verb noun.  Valid verbs are go, look, and take"
+        response = "I don't understand.  Try verb noun.  Valid verbs are go, look, take, and use"
 
         # if the player is dead if goes/went south from room 4
         if Game.currentRoom == None:
@@ -287,11 +299,20 @@ class Game(Frame):
 
                 # a valid exit is found
                 if noun in Game.currentRoom.exits:
-                    # change the current room to the one that is associated with the specified exit
-                    Game.currentRoom = Game.currentRoom.exits[noun]
-                    # set the response (success)
-                    response = "Room changed."
-                    # no need to check any more exits
+                    # checks to see if room is locked
+                    if Game.currentRoom.exits[noun][1] == False:
+                        # change the current room to the one that is associated with the specified exit
+                        Game.currentRoom = Game.currentRoom.exits[noun][0]
+                        # set the response (success)
+                        response = "Room changed."
+                        # no need to check any more exits
+                    elif Game.currentRoom.exits[noun][1]== True:
+                        response = "It is locked."
+                        for item in Game.inventory:
+                            if item == Game.currentRoom.exits[noun][2]:
+                                Game.currentRoom = Game.currentRoom.exits[noun][0]
+                                response = "Room changed"
+
 
             # the verb is: look
             elif (verb == "look"):
@@ -299,11 +320,11 @@ class Game(Frame):
                 response = "I don't see that item."
 
                 # check for valid items in the current room
-                for i in range(len(Game.currentRoom.items)):
+                for item in Game.currentRoom.items:
                     # a valid item is found
-                    if (noun == Game.currentRoom.items[noun]):
+                    if noun == item:
                         # set the response to the item's description
-                        response = Game.currentRoom.itemDescriptions[i]
+                        response = Game.currentRoom.items[noun][0]
                         # no need to check any more items
 
             # the verb is: take
@@ -323,12 +344,32 @@ class Game(Frame):
                         response = "Item grabbed."
                         # no need to check any more grabbable items
                         break
+
+            # the verb is: look
+            elif (verb == "use"):
+                # set a default response
+                response = "I can't use this"
+
+                # check for valid items in the current room
+                for item in Game.currentRoom.items:
+                    # a valid item is found
+                    # set the response to the item's description
+                    response = Game.currentRoom.items[noun][1]
+                    # if player has key unlock puzzle box and remove key and add window_key to inv
+                    if noun == "puzzle_box":
+                        for item in Game.inventory:
+                            response = "You unlock the box and find another key"
+                            if item == "key":
+                                Game.inventory.append("window_key")
+                                Game.inventory.remove("key")
+
         # Display the response on the right of the GUI
         # Display the room's image on the left of the GUI
         # clear the player's input
         self.setStatus(response)
         self.setRoomImage()
         Game.player_input.delete(0, END)
+
 
 #############################################
 # the default size of the GUI is 800x600
