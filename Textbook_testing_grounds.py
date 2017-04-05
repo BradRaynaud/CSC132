@@ -1,6 +1,13 @@
 
 from random import randint
 
-i = [[x,x**2] for x in range(1,11)]
+dict = {}
 
-print i
+list = ["kale", "is", "a"]
+
+print list[0]
+print list[1]
+print list[2]
+
+var1 = list[2]
+print var1
