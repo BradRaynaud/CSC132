@@ -1,7 +1,7 @@
 ######################################################################################################################
-# Name: 
-# Date: 
-# Description: 
+# Name: Brad Raynaud
+# Date: 4/5/2017
+# Description: This program completes the Chaos Game assignment
 ######################################################################################################################
 from Tkinter import *
 from random import *
