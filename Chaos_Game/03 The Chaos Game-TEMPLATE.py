@@ -13,8 +13,7 @@ class Point(object):
         self.x = x
         self.y = y
 
-        # Getter for x
-
+    # Getter for x
     @property
     def x(self):
         return self._x
@@ -34,6 +33,7 @@ class Point(object):
     def y(self, value):
         self._y = value
 
+    # Midpoint function
     def midpt(self, arg):
         x = (self.x + arg.x) / 2
         y = (self.y + arg.y) / 2
