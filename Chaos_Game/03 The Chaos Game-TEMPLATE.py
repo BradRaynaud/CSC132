@@ -6,6 +6,7 @@
 from Tkinter import *
 from random import *
 
+
 # the 2D point class
 class Point(object):
     def __init__(self, x=0, y=0):
@@ -36,7 +37,8 @@ class Point(object):
     def midpt(self, arg):
         x = (self.x + arg.x) / 2
         y = (self.y + arg.y) / 2
-        return Point(x,y)
+        return Point(x, y)
+
 
 # the chaos game class
 # inherits from the Canvas class of Tkinter
@@ -48,26 +50,27 @@ class ChaosGame(Canvas):
 
     def play(self, n):
         # Creates the vertices
-        P1 = Point(300,10)
-        P2 = Point(10,510)
-        P3 = Point(590,510)
+        P1 = Point(300, 10)
+        P2 = Point(10, 510)
+        P3 = Point(590, 510)
         # creates a list with the three Vertices
-        Plist = [P1,P2,P3]
+        Plist = [P1, P2, P3]
         # Plot the vertices
         self.plot(P1, VERTEX_COLOR, VERTEX_RADIUS)
         self.plot(P2, VERTEX_COLOR, VERTEX_RADIUS)
         self.plot(P3, VERTEX_COLOR, VERTEX_RADIUS)
-        P4 = P1 # Initializes P4
+        P4 = P1  # Initializes P4
         for i in range(n):
-            Randpoint = Plist[randint(0,len(Plist)-1)] # Chooses a random vertex from the list Plist
-            P4 = P4.midpt(Randpoint) # Calculates the midpoint between P4 and the random vertex
-            self.plot(P4, POINT_COLOR, POINT_RADIUS) # Plots the new point
+            Randpoint = Plist[randint(0, len(Plist) - 1)]  # Chooses a random vertex from the list Plist
+            P4 = P4.midpt(Randpoint)  # Calculates the midpoint between P4 and the random vertex
+            self.plot(P4, POINT_COLOR, POINT_RADIUS)  # Plots the new point
 
     # Function that plots ovals on the Tkinter Canvas
     def plot(self, point, Color, Radius):
         # Creates an oval using a Point and sets the Color
         self.create_oval(point.x, point.y, point.x + 2 * Radius, point.y + 2 * Radius, outline=Color,
                          fill=Color)
+
 
 ##########################################################
 # ***DO NOT MODIFY OR REMOVE ANYTHING BELOW THIS POINT!***
