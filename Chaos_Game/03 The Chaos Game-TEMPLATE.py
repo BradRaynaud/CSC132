@@ -68,8 +68,7 @@ class ChaosGame(Canvas):
     # Function that plots ovals on the Tkinter Canvas
     def plot(self, point, Color, Radius):
         # Creates an oval using a Point and sets the Color
-        self.create_oval(point.x, point.y, point.x + 2 * Radius, point.y + 2 * Radius, outline=Color,
-                         fill=Color)
+        self.create_oval(point.x, point.y, point.x + 2 * Radius, point.y + 2 * Radius, outline=Color, fill=Color)
 
 
 ##########################################################
