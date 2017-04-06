@@ -48,31 +48,26 @@ class ChaosGame(Canvas):
 
     def play(self, n):
         # Creates the vertices
-        P1 = Point(300,0)
-        P2 = Point(0,520)
-        P3 = Point(600,520)
+        P1 = Point(300,10)
+        P2 = Point(10,510)
+        P3 = Point(590,510)
+        # creates a list with the three Vertices
         Plist = [P1,P2,P3]
-        self.plotV(P1)
-        self.plotV(P2)
-        self.plotV(P3)
-        P4 = P1
+        # Plot the vertices
+        self.plot(P1, VERTEX_COLOR, VERTEX_RADIUS)
+        self.plot(P2, VERTEX_COLOR, VERTEX_RADIUS)
+        self.plot(P3, VERTEX_COLOR, VERTEX_RADIUS)
+        P4 = P1 # Initializes P4
         for i in range(n):
-            Randpoint = Plist[randint(0,len(Plist)-1)]
-            P4 = P4.midpt(Randpoint)
-            self.plot(P4)
-
-
+            Randpoint = Plist[randint(0,len(Plist)-1)] # Chooses a random vertex from the list Plist
+            P4 = P4.midpt(Randpoint) # Calculates the midpoint between P4 and the random vertex
+            self.plot(P4, POINT_COLOR, POINT_RADIUS) # Plots the new point
 
     # Function that plots ovals on the Tkinter Canvas
-    def plot(self, point):
+    def plot(self, point, Color, Radius):
         # Creates an oval using a Point and sets the Color
-        self.create_oval(point.x, point.y, point.x + 2 * POINT_RADIUS, point.y + 2 * POINT_RADIUS, outline=POINT_COLOR,
-                         fill=POINT_COLOR)
-
-    def plotV(self, point):
-        # Creates an oval using a Point and sets the Color
-        self.create_oval(point.x, point.y, point.x + 2 * VERTEX_RADIUS, point.y + 2 * VERTEX_RADIUS, outline=VERTEX_COLOR,
-                         fill=VERTEX_COLOR)
+        self.create_oval(point.x, point.y, point.x + 2 * Radius, point.y + 2 * Radius, outline=Color,
+                         fill=Color)
 
 ##########################################################
 # ***DO NOT MODIFY OR REMOVE ANYTHING BELOW THIS POINT!***
