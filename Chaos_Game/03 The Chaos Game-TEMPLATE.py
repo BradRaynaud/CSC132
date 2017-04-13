@@ -5,6 +5,7 @@
 ######################################################################################################################
 from Tkinter import *
 from random import *
+from math import sqrt
 
 
 # the 2D point class
@@ -39,6 +40,9 @@ class Point(object):
         y = (self.y + arg.y) / 2
         return Point(x, y)
 
+    def dist(self, arg):
+            return (sqrt((arg.x - self.x) ** 2 + (arg.y - self.y) ** 2))
+
 
 # the chaos game class
 # inherits from the Canvas class of Tkinter
@@ -56,14 +60,30 @@ class ChaosGame(Canvas):
         # creates a list with the three Vertices
         Plist = [P1, P2, P3]
         # Plot the vertices
-        self.plot(P1, VERTEX_COLOR, VERTEX_RADIUS)
-        self.plot(P2, VERTEX_COLOR, VERTEX_RADIUS)
-        self.plot(P3, VERTEX_COLOR, VERTEX_RADIUS)
+        self.plot(P1, "Red", VERTEX_RADIUS)
+        self.plot(P2, "Green", VERTEX_RADIUS)
+        self.plot(P3, "Blue", VERTEX_RADIUS)
         P4 = P1  # Initializes P4
         for i in range(n):
             Randpoint = Plist[randint(0, len(Plist) - 1)]  # Chooses a random vertex from the list Plist
             P4 = P4.midpt(Randpoint)  # Calculates the midpoint between P4 and the random vertex
-            self.plot(P4, POINT_COLOR, POINT_RADIUS)  # Plots the new point
+            self.plot(P4, self.determinecolor(P4), POINT_RADIUS)  # Plots the new point
+
+    def determinecolor(self, point):
+        P1 = Point(300, 10) # Vertice 1
+        P2 = Point(10, 510) # Vertice 2
+        P3 = Point(590, 510) # Vertice 3
+        A = point.dist(P1) # Red FF0000
+        B = point.dist(P2) # Green 00FF00
+        C = point.dist(P3) # Blue 0000FF
+        if A < B and A < C: # If closer to Vertice A return Red
+            return "#FF0000"
+        if B < A and B < C: # If closer to Vertice B return Green
+            return "#00FF00"
+        if C < A and C < B: # If closer to Vertice C return Blue
+            return "#0000FF"
+
+
 
     # Function that plots ovals on the Tkinter Canvas
     def plot(self, point, Color, Radius):
