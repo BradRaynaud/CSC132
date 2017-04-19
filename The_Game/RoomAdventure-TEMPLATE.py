@@ -14,7 +14,6 @@
 # 1) look table 2) take key 3) go east 4) go stairs 5) use puzzle_box 6) go stairs 7) go south 8) go south
 ##############################################
 # Imports
-
 from Tkinter import *
 from time import sleep
 

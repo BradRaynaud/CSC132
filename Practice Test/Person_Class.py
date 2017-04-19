@@ -36,3 +36,5 @@ class Student(Adult, Child):
         Adult.__init__(self, "Pass Tests")
         Child.__init__(self)
         self.grades = float(dagrades)
+
+
