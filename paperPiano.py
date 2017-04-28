@@ -1,6 +1,6 @@
 ########################################
-# Name:
-# Date:
+# Name: Brad Raynaud
+# Date: 4/19/2017
 # Description: Paper piano (v2).
 ########################################
 import RPi.GPIO as GPIO
@@ -16,13 +16,13 @@ MIXER_BUFF = 1024
 
 # the note generator class
 class Note(pygame.mixer.Sound):
-# note that volume ranges from 0.0 to 1.0
-    def __init__(self, frequency, volume):
+    # note that volume ranges from 0.0 to 1.0
+    def __init__(self, frequency, volume, wavetype):
         self.frequency = frequency
+        self.wavetype = wavetype  # instance variable determining wave type
         # initialize the note using an array of samples
-        pygame.mixer.Sound.__init__(self, buffer = self.build_samples())
+        pygame.mixer.Sound.__init__(self, buffer=self.build_samples())
         self.set_volume(volume)
-
 
     # builds an array of samples for the current note
     def build_samples(self):
@@ -34,151 +34,86 @@ class Note(pygame.mixer.Sound):
         samples = array("h", [0] * period)
         # generate the note's samples
         for t in range(period):
-            if (t < period / 2):
-                samples[t] = amplitude
-        else:
-            samples[t] = -amplitude
+            # implemented the square wavetype
+            if self.wavetype == "Square":  # yellow
+                if t < period / 2:
+                    samples[t] = amplitude
+                else:
+                    samples[t] = -amplitude
+
+            # implemented the triangle wavetype
+            # amplitude follows graph provided in the activity
+            elif self.wavetype == "Triangle":  # Green
+                if t >= period * 3 / 4:
+                    for n in range(-amplitude, 0, amplitude / 42):
+                        samples[t] = n
+                if t < period / 4:
+                    for n in range(0, amplitude, amplitude / 42):
+                        samples[t] = n
+                else:
+                    for n in range(amplitude, -amplitude, -amplitude / 85):
+                        samples[t] = n
+            # Implemented the sawtooth wavetype
+            # amplitude goes from 0 to max amp then from min amp to 0
+            elif self.wavetype == "Sawtooth":  # Blue
+                if t < period / 2:
+                    for n in range(0, amplitude, amplitude / 85):
+                        samples[t] = n
+                else:
+                    for n in range(-amplitude, 0, amplitude / 85):
+                        samples[t] = n
         return samples
+
 
 # waits until a note is pressed
 def wait_for_note_start():
     while (True):
-    # first, check for notes
+        # first, check for notes
         for key in range(len(keys)):
             if (GPIO.input(keys[key])):
                 return key
-        # next, check for the play button
-        if (GPIO.input(play)):
-            # debounce the switch
-            while (GPIO.input(play)):
-                sleep(0.01)
-            return "play"
-        # finally, check for the record button
-        if (GPIO.input(record)):
-            # debounce the switch
-            while (GPIO.input(record)):
-                sleep(0.01)
-            return "record"
         sleep(0.01)
-        # waits until a note is released
 
+
+# waits until a note is released
 def wait_for_note_stop(key):
     while (GPIO.input(key)):
         sleep(0.1)
 
-# plays a recorded song
-def play_song():
-    # each element in the song list is a list composed of two
-    # parts: a note (or silence) and a duration
-    for part in song:
-        note, duration = part
-        # if it's a silence, delay for its duration
-        if (note == "SILENCE"):
-            sleep(duration)
-        # otherwise, play the note for its duration
-        else:
-            notes[note].play(-1)
-            sleep(duration)
-            notes[note].stop()
 
 # preset mixer initialization arguments: frequency (44.1K), size
-#(16 bits signed), channels (mono), and buffer size (1KB)
+# (16 bits signed), channels (mono), and buffer size (1KB)
 # then, initialize the pygame library
-pygame.mixer.pre_init(MIXER_FREQ, MIXER_SIZE, MIXER_CHANS,\
-MIXER_BUFF)
+pygame.mixer.pre_init(MIXER_FREQ, MIXER_SIZE, MIXER_CHANS, MIXER_BUFF)
 pygame.init()
+
 # use the Broadcom pin mode
 GPIO.setmode(GPIO.BCM)
+
 # setup the pins and frequencies for the notes (C, D, E, F)
-keys = [ 26, 6, 12, 20 ]
-freqs = [ 261.6, 293.7, 329.6, 349.2 ]
+keys = [26, 6, 12, 20]
+waveType = ["Square", "Triangle", "Sawtooth"]  # list of wavetypes
 notes = []
-
-# setup the button pins
-play = 17
-record = 27
-
-# setup the LED pins
-red = 24
-green = 18
-blue = 23 # if red is too dim, use blue
 
 # setup the input pins
 GPIO.setup(keys, GPIO.IN, GPIO.PUD_DOWN)
-GPIO.setup(play, GPIO.IN, GPIO.PUD_DOWN)
-GPIO.setup(record, GPIO.IN, GPIO.PUD_DOWN)
-
-# setup the output pins
-GPIO.setup(red, GPIO.OUT)
-GPIO.setup(green, GPIO.OUT)
-GPIO.setup(blue, GPIO.OUT)
 
 # create the actual notes
-for n in range(len(freqs)):
-    notes.append(Note(freqs[n],1))
-
-# begin in a non-recording state and initialize the song
-recording = False
-song = []
+for n in range(len(waveType)):
+    notes.append(Note(261.6, 1, waveType[n]))
 
 # the main part of the program
 print "Welcome to Paper Piano!"
 print "Press Ctrl+C to exit..."
 
-# detect when Ctrl+C is pressed so that we can reset the GPIO
-# pins
-
 try:
     while (True):
-        # start a timer
-        start = time()
-        # play a note when pressed...until released (also
-        # detect play/record)
+        # play a note when pressed...until released
         key = wait_for_note_start()
-        # note the duration of the silence
-        duration = time() - start
-        # if recording, append the duration of the silence
-        if (recording):
-            song.append(["SILENCE", duration])
-        # if the record button was pressed
-        if (key == "record"):
-        # if not previously recording, reset the song
-            if (not recording):
-                song = []
-            # note the recording state and turn on the red LED
-            recording = not recording
-            GPIO.output(blue, recording)
-        # if the play button was pressed
-        elif (key == "play"):
-            # if recording, stop
-            if (recording):
-                recording = False
-            # turn on the green LED
-            GPIO.output(red, False)
-            GPIO.output(green, True)
-            # play the song
-            play_song()
-            GPIO.output(geen, False)
-        # otherwise a piano key was pressed
-        else:
-            # start the timer and play the note
-            start = time()
-            notes[key].play(-1)
-            wait_for_note_stop(keys[key])
-            notes[key].stop()
-            # once the note is released, stop the timer
-            duration = time() - start
-            # if recording, append the note and its duration
-            if (recording):
-                song.append([key, duration])
+        notes[key].play(-1)
+        wait_for_note_stop(keys[key])
+        notes[key].stop()
 
+# detect when Ctrl+C is pressed so that we can reset the GPIO
 except KeyboardInterrupt:
     GPIO.cleanup()
-
-
-
-
-
-
-
-
